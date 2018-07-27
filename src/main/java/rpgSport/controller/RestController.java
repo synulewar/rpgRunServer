@@ -29,9 +29,11 @@ public class RestController {
         return mUserService.addUser(name);
     }
 
-    @GetMapping("/updatescore")
-    public @ResponseBody User updateScore(@RequestParam String id, @RequestParam String value) {
-        return mUserService.updateScore(id, value);
+    @GetMapping("/update")
+    public @ResponseBody User updateScore(@RequestParam String id, @RequestParam String score,
+                                          @RequestParam String runDistance, @RequestParam String bikeDistance,
+                                          @RequestParam String walkDistance) {
+        return mUserService.update(id, score, runDistance, bikeDistance, walkDistance);
     }
 
     @GetMapping("/allusers")

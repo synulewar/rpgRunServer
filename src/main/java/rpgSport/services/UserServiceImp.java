@@ -18,9 +18,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User addUser(String name) {
-        User user = new User();
-        user.setName(name);
-        user.setScore(0L);
+        User user = new User(name);
         mUserRepository.save(user);
         return user;
     }
@@ -34,6 +32,20 @@ public class UserServiceImp implements UserService {
 
         User user = optionalUser.get();
         user.updateScore(Long.parseLong(value));
+        mUserRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public User update(String id, String score, String runDistance, String bikeDistance, String walkDistance) {
+        Optional<User> optionalUser = mUserRepository.findById(Long.parseLong(id));
+        if (!optionalUser.isPresent()) {
+            return new User();
+        }
+
+        User user = optionalUser.get();
+        user.update(Long.parseLong(score), Double.parseDouble(runDistance), Double.parseDouble(bikeDistance),
+                Double.parseDouble(walkDistance));
         mUserRepository.save(user);
         return user;
     }
